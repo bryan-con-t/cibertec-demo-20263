@@ -50,3 +50,16 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingFullScreenPreview() {
+    CibertecdemoTheme {
+        Greeting(
+            name ="Android",
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Gray),
+        )
+    }
+}
