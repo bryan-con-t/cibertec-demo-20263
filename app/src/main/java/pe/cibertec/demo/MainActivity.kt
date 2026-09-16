@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import pe.cibertec.demo.ui.screens.LoginScreen
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,8 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CibertecdemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Demo",
+                    LoginScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -47,7 +47,7 @@ fun Greeting(
 @Composable
 fun GreetingPreview() {
     CibertecdemoTheme {
-        Greeting("Android")
+        LoginScreen()
     }
 }
 
@@ -55,11 +55,9 @@ fun GreetingPreview() {
 @Composable
 fun GreetingFullScreenPreview() {
     CibertecdemoTheme {
-        Greeting(
-            name ="Android",
+        LoginScreen(
             modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Gray),
+                .fillMaxSize(),
         )
     }
 }
