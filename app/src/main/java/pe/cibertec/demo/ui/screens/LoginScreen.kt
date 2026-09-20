@@ -42,6 +42,9 @@ fun LoginScreen(
     var clave by remember { mutableStateOf("") }
     var claveVisible by remember { mutableStateOf(false) }
 
+    var errorEmail by remember { mutableStateOf(false) }
+    var errorClave by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -63,7 +66,12 @@ fun LoginScreen(
         )
         OutlinedTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = {
+                email = it
+                if (email.isNotBlank()) {
+                    errorEmail = false
+                }
+            },
             label = {
                 Text(
                     text = "Correo electrónico"
@@ -78,11 +86,32 @@ fun LoginScreen(
                     painter = painterResource(R.drawable.ic_mail),
                     contentDescription = null,
                 )
-            }
+            },
+            isError = errorEmail,
+            supportingText = {
+                if (errorEmail) {
+                    if (email.isEmpty()) {
+                        Text(
+                            text = "El correo es obligatorio"
+                        )
+                    } else if (!email.contains("@")) {
+                        Text(
+                            text = "Ingrese un correo válido"
+                        )
+                    }
+                } else {
+                    null
+                }
+            },
         )
         OutlinedTextField(
             value = clave,
-            onValueChange = { clave = it },
+            onValueChange = {
+                clave = it
+                if (clave.isNotBlank()) {
+                    errorClave = false
+                }
+            },
             label = {
                 Text(
                     text = "Contraseña"
@@ -118,12 +147,81 @@ fun LoginScreen(
                     painter = painterResource(R.drawable.ic_lock),
                     contentDescription = null,
                 )
+            },
+            isError = errorClave,
+            supportingText = {
+                if (errorClave) {
+//                    when {
+//                        clave.isEmpty() -> {
+//                            Text(
+//                                text = "La contraseña es obligatoria"
+//                            )
+//                        }
+//                        //---------------------------------------------------------------------------
+//                        clave.length < 8 -> {
+//                            Text(
+//                                text = "La contraseña debe tener más de 8 caracteres"
+//                            )
+//                        }
+//                        //---------------------------------------------------------------------------
+//                        !clave.any {
+//                            it.isUpperCase()
+//                        } -> {
+//                            Text(
+//                                text = "La contraseña debe tener al menos una letra mayúscula"
+//                            )
+//                        }
+//                        //---------------------------------------------------------------------------
+//                        !clave.any {
+//                            it.isDigit()
+//                        } -> {
+//                            Text(
+//                                text = "La contraseña debe tener al menos un número"
+//                            )
+//                        }
+//                        //---------------------------------------------------------------------------
+//                        !clave.any {
+//                            !it.isLetterOrDigit()
+//                        } -> {
+//                            Text(
+//                                text = "La contraseña debe tener al menos un caracter especial"
+//                            )
+//                        }
+//                    }
+                    if (clave.isEmpty()) {
+                        Text(
+                            text = "La contraseña es obligatoria"
+                        )
+                    } else if (clave.length < 8) {
+                        Text(
+                            text = "La contraseña debe tener más de 8 caracteres"
+                        )
+                    } else if (!clave.any{ it.isUpperCase() }) {
+                        Text(
+                            text = "La contraseña debe tener al menos una letra mayúscula"
+                        )
+                    } else if (!clave.any{ it.isDigit() }) {
+                        Text(
+                            text = "La contraseña debe tener al menos un número"
+                        )
+                    } else if (!clave.any{ !it.isLetterOrDigit() }) {
+                        Text(
+                            text = "La contraseña debe tener al menos un caracter especial"
+                        )
+                    }
+                } else {
+                    null
+                }
             }
         )
         Button(
             onClick = {
-                Log.e("CIBERTEC_CLICK", "Mensaje")
-                Toast.makeText(context, "Mensaje", Toast.LENGTH_SHORT).show()
+                if (email.isEmpty() || !email.contains("@")) {
+                    errorEmail = true
+                }
+                if (clave.isEmpty() || clave.length < 8 || !clave.any { it.isUpperCase() } || !clave.any { it.isDigit() } || !clave.any { !it.isLetterOrDigit() }) {
+                    errorClave = true
+                }
             }
         ) {
             Text(

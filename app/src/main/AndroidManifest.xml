@@ -14,7 +14,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:theme="@style/Theme.Cibertecdemo"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
             android:theme="@style/Theme.Cibertecdemo"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
