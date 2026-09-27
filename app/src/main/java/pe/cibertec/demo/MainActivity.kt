@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import pe.cibertec.demo.ui.screens.ListaComprasScreen
 import pe.cibertec.demo.ui.screens.LoginScreen
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CibertecdemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(
+                    ListaComprasScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -47,7 +48,7 @@ fun Greeting(
 @Composable
 fun GreetingPreview() {
     CibertecdemoTheme {
-        LoginScreen()
+        ListaComprasScreen()
     }
 }
 
@@ -55,7 +56,7 @@ fun GreetingPreview() {
 @Composable
 fun GreetingFullScreenPreview() {
     CibertecdemoTheme {
-        LoginScreen(
+        ListaComprasScreen(
             modifier = Modifier
                 .fillMaxSize(),
         )
