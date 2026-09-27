@@ -14,6 +14,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,13 +24,17 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import pe.cibertec.demo.R
 import pe.cibertec.demo.ui.components.DeleteDialog
+import pe.cibertec.demo.ui.components.LoadingDialog
+import pe.cibertec.demo.ui.components.LottieLoadingDialog
 import pe.cibertec.demo.ui.components.ProductoDialog
 import pe.cibertec.demo.ui.components.ProductoItem
 import pe.cibertec.demo.ui.model.Producto
 import pe.cibertec.demo.ui.model.productosDemo
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
+import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,6 +46,7 @@ fun ListaComprasScreen(
     var mostrarDialog by remember { mutableStateOf(false) }
     var mostrarBottomsheet by remember { mutableStateOf(false) }
     var mostrarDeleteDialog by remember { mutableStateOf(false) }
+    var mostrarLoading by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -133,6 +139,7 @@ fun ListaComprasScreen(
             nombreProducto = productoSeleccionado!!.nombre,
             onConfirm = {
                 mostrarDeleteDialog = false
+                mostrarLoading = true
                 productos = productos.filter {
                     it != productoSeleccionado
                 }
@@ -142,6 +149,18 @@ fun ListaComprasScreen(
                 mostrarDeleteDialog = false
             }
         )
+    }
+
+    LaunchedEffect(mostrarLoading) {
+        if (mostrarLoading) {
+            delay(3000.milliseconds)
+            mostrarLoading = false
+        }
+    }
+
+    if (mostrarLoading) {
+//        LoadingDialog(mensaje = "Eliminando producto...")
+        LottieLoadingDialog(mensaje = "Eliminando producto...")
     }
 }
 

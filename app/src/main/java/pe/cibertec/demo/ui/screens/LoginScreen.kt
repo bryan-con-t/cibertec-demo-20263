@@ -34,7 +34,8 @@ import pe.cibertec.demo.ui.theme.CibertecdemoTheme
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLoginSuccess: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -222,6 +223,9 @@ fun LoginScreen(
                 if (clave.isEmpty() || clave.length < 8 || !clave.any { it.isUpperCase() } || !clave.any { it.isDigit() } || !clave.any { !it.isLetterOrDigit() }) {
                     errorClave = true
                 }
+                if (!errorEmail && !errorClave) {
+                    onLoginSuccess()
+                }
             }
         ) {
             Text(
@@ -236,7 +240,8 @@ fun LoginScreen(
 fun LoginScreenPreview() {
     CibertecdemoTheme {
         LoginScreen(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            onLoginSuccess = {},
         )
     }
 }

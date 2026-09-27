@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import pe.cibertec.demo.R
 import pe.cibertec.demo.ui.model.Producto
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
+import pe.cibertec.demo.ui.theme.Dimensions
 
 @Composable
 fun ProductoItem(
@@ -25,7 +26,8 @@ fun ProductoItem(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
-            .padding(12.dp)
+            // espaciado dinámico con valores reutilizables de Dimensions
+            .padding(Dimensions.itemSpacing)
             .clickable{
                 onClick()
             }
@@ -35,6 +37,11 @@ fun ProductoItem(
         Text(
             modifier = Modifier.weight(1f),
             text = producto.nombre,
+        )
+        // llamado de función reutilizable de data class de producto
+        Text(
+            modifier = Modifier.weight(1f),
+            text = "S/ ${producto.subtotal()}",
         )
         Checkbox(
             checked = producto.comprado,

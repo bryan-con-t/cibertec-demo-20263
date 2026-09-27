@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import pe.cibertec.demo.ui.navigation.AppNavigation
 import pe.cibertec.demo.ui.screens.ListaComprasScreen
-import pe.cibertec.demo.ui.screens.LoginScreen
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,8 +24,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CibertecdemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ListaComprasScreen(
-                        modifier = Modifier.padding(innerPadding)
+                    AppNavigation(
+                        modifier = Modifier.padding(innerPadding).background(Color.White)
                     )
                 }
             }

@@ -7,4 +7,13 @@ data class Producto (
     val categoria: String,
     val estado: String,
     val comprado: Boolean = false,
-)
+    val imagen: String? = null,
+) {
+    fun subtotal() : Double {
+        return precio * cantidad
+    }
+
+    fun marcarComoComprado(): Producto = copy(comprado = true)
+
+    fun marcarComoPendiente(): Producto = copy(comprado = false)
+}
