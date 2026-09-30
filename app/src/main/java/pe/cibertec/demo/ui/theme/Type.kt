@@ -32,11 +32,39 @@ val Quicksand = FontFamily(
 )
 
 val Typography = Typography(
+    headlineLarge = TextStyle(
+        fontFamily = Quicksand,
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp,
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = Quicksand,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+    ),
+    titleLarge = TextStyle(
+        fontFamily = Quicksand,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp,
+    ),
+    titleMedium = TextStyle(
+        fontFamily = Quicksand,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+    ),
     bodyLarge = TextStyle(
         fontFamily = Quicksand,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = Quicksand,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = Quicksand,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+    ),
 )

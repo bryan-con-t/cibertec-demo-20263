@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pe.cibertec.demo.R
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
+import pe.cibertec.demo.ui.theme.Secondary
 
 @Composable
 fun LoginScreen(
@@ -63,7 +65,9 @@ fun LoginScreen(
             text = "Cibertec Demo"
         )
         Text(
-            text = "Lista de compras"
+            text = "Bienvenido de nuevo",
+            color = Secondary,
+            style = MaterialTheme.typography.titleLarge
         )
         OutlinedTextField(
             value = email,
