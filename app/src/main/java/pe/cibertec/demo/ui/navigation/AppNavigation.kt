@@ -2,32 +2,41 @@ package pe.cibertec.demo.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import pe.cibertec.demo.ui.screens.ListaComprasPersistScreen
 import pe.cibertec.demo.ui.screens.ListaComprasScreen
 import pe.cibertec.demo.ui.screens.LoginScreen
+import pe.cibertec.demo.ui.screens.PerfilScreen
 
 @Composable
 fun AppNavigation(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
 ) {
-    val navController = rememberNavController()
 
     NavHost(
         navController = navController,
-        startDestination = "login",
+        startDestination = AppDestinations.Inicio.route,
         modifier = modifier,
     ) {
-        composable("login") {
+        composable(AppDestinations.Inicio.route) {
             LoginScreen(
                 onLoginSuccess = {
-                    navController.navigate("lista_compras")
+                    navController.navigate(AppDestinations.ListaPersist.route)
                 }
             )
         }
-        composable("lista_compras") {
+        composable(AppDestinations.Lista.route) {
             ListaComprasScreen()
+        }
+        composable(AppDestinations.ListaPersist.route) {
+            ListaComprasPersistScreen()
+        }
+        composable(AppDestinations.Perfil.route) {
+            PerfilScreen()
         }
     }
 }

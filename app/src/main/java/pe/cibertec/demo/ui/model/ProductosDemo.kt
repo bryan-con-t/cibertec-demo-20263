@@ -9,7 +9,7 @@ val productosDemo = listOf(
         estado = "Pendiente",
     ),
     Producto(
-        nombre = "Leche",
+        nombre = "Leche deslactosada marca Gloria",
         precio = 4.0,
         cantidad = 3,
         categoria = "Lácteos",

@@ -10,9 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import pe.cibertec.demo.ui.components.AppBottomBar
+import pe.cibertec.demo.ui.navigation.AppDestinations
 import pe.cibertec.demo.ui.navigation.AppNavigation
 import pe.cibertec.demo.ui.screens.ListaComprasScreen
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
@@ -23,9 +28,22 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CibertecdemoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val navController = rememberNavController()
+                val currentDestination by navController.currentBackStackEntryAsState()
+                val currentRoute = currentDestination?.destination?.route
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    bottomBar = {
+                        if (currentRoute != AppDestinations.Inicio.route) {
+                            AppBottomBar(
+                                navController = navController
+                            )
+                        }
+                    }
+                ) { innerPadding ->
                     AppNavigation(
-                        modifier = Modifier.padding(innerPadding).background(Color.White)
+                        modifier = Modifier.padding(innerPadding).background(Color.White),
+                        navController = navController,
                     )
                 }
             }
@@ -33,20 +51,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(
-    name: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = "Cibertec $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MainActivityPreview() {
     CibertecdemoTheme {
         ListaComprasScreen()
     }
@@ -54,7 +61,7 @@ fun GreetingPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingFullScreenPreview() {
+fun MainActivityFullScreenPreview() {
     CibertecdemoTheme {
         ListaComprasScreen(
             modifier = Modifier

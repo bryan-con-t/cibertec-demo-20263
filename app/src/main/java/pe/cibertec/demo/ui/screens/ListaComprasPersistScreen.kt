@@ -28,19 +28,19 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import pe.cibertec.demo.R
 import pe.cibertec.demo.ui.components.DeleteDialog
-import pe.cibertec.demo.ui.components.LoadingDialog
 import pe.cibertec.demo.ui.components.LottieLoadingDialog
+import pe.cibertec.demo.ui.components.ProductoCard
 import pe.cibertec.demo.ui.components.ProductoDialog
-import pe.cibertec.demo.ui.components.ProductoItem
 import pe.cibertec.demo.ui.components.SectionHeader
 import pe.cibertec.demo.ui.model.Producto
 import pe.cibertec.demo.ui.model.productosDemo
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
+import pe.cibertec.demo.ui.theme.Dimensions
 import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaComprasScreen(
+fun ListaComprasPersistScreen(
     modifier: Modifier = Modifier,
 ) {
     var productos by remember { mutableStateOf(productosDemo) }
@@ -58,15 +58,22 @@ fun ListaComprasScreen(
         SectionHeader(titulo = stringResource(R.string.shopping_list))
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(Dimensions.itemSpacing)
         ) {
-            items(productos) { producto ->
-                ProductoItem(
+            items(
+                items = productos,
+                key = {
+                    it.nombre
+                }
+            ) { producto ->
+                ProductoCard(
                     producto = producto,
-                    onCheckedChange = { checked ->
+                    onCompradoChange = { comprado ->
                         productos = productos.map {
                             if (it == producto) {
-                                it.copy(comprado = checked)
+                                it.copy(
+                                    comprado = comprado
+                                )
                             } else {
                                 it
                             }
@@ -75,7 +82,7 @@ fun ListaComprasScreen(
                     onClick = {
                         productoSeleccionado = producto
                         mostrarBottomsheet = true
-                    },
+                    }
                 )
                 HorizontalDivider()
             }
@@ -164,9 +171,9 @@ fun ListaComprasScreen(
 
 @Preview
 @Composable
-fun ListaComprasScreenPreview() {
+fun ListaComprasPersistScreenPreview() {
     CibertecdemoTheme {
-        ListaComprasScreen(
+        ListaComprasPersistScreen(
             modifier = Modifier.fillMaxSize()
         )
     }
