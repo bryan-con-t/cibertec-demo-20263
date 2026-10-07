@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pe.cibertec.demo.R
+import pe.cibertec.demo.data.preferences.SessionManager
 import pe.cibertec.demo.ui.theme.CibertecdemoTheme
 import pe.cibertec.demo.ui.theme.Secondary
 
@@ -40,6 +41,8 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit,
 ) {
     val context = LocalContext.current
+
+    val sessionManager = remember { SessionManager(context) }
 
     var email by remember { mutableStateOf("") }
     var clave by remember { mutableStateOf("") }
@@ -228,6 +231,10 @@ fun LoginScreen(
                     errorClave = true
                 }
                 if (!errorEmail && !errorClave) {
+                    sessionManager.saveSession(
+                        userId = 1,
+                        userName = "Usuario de prueba"
+                    )
                     onLoginSuccess()
                 }
             }
